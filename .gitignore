@@ -1,0 +1,12 @@
+**/target/
+.env
+.env.*
+!.env.example
+.tools/
+.superpowers/
+.idea/
+*.iml
+.vscode/
+**/node_modules/
+dashboard/dist/
+*.log
