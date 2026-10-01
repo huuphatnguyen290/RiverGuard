@@ -1,0 +1,19 @@
+services:
+  postgres:
+    image: postgres:17.6
+    environment:
+      POSTGRES_DB: ${RG_DB_NAME:-riverguard}
+      POSTGRES_USER: ${RG_DB_USER:-riverguard_local}
+      POSTGRES_PASSWORD: ${RG_DB_PASSWORD:-riverguard_local_only}
+    ports:
+      - "127.0.0.1:${RG_DB_PORT:-5432}:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U $$POSTGRES_USER -d $$POSTGRES_DB"]
+      interval: 5s
+      timeout: 3s
+      retries: 10
+    restart: unless-stopped
+volumes:
+  postgres_data:
